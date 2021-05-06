@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 
 import StartingScene from '../scenes/starting-scene';
+// import StartingScene from '../scenes/steering-wandering-scene';
+// import StartingScene from '../scenes/steering-arrival-scene';
 
 const config = {
   type: Phaser.AUTO,
