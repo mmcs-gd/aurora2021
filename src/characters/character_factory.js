@@ -80,12 +80,12 @@ export default class CharacterFactory {
         //todo: add mixin
     }
 
-    buildSlime(x, y, params) {
+    buildSlime(x, y, hp, params) {
         const slimeType = params.slimeType || 1;
-        let slime = new Slime(this.scene, x, y, this.slimeSpriteSheet, 9 * slimeType);
+        let slime = new Slime(this.scene, x, y, this.slimeSpriteSheet, 1 * slimeType, hp);
         slime.animations = this.animationLibrary.get(this.slimeSpriteSheet).get(this.slimeNumberToName(slimeType));
         slime.setCollideWorldBounds(true);
-       // slime.speed = new Vector2(Phaser.Math.RND.between(1, 10) / 10.0, Phaser.Math.RND.between(1, 10) / 10.0);
+        //slime.speed = new Vector2(Phaser.Math.RND.between(1, 10) / 10.0, Phaser.Math.RND.between(1, 10) / 10.0);
         slime.speed = new Vector2(20, 20);
         return slime;
     }

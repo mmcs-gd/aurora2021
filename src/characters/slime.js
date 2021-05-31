@@ -6,12 +6,12 @@ const delay = 500;
 
 
 export default class Slime extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, name, frame) {
-        super(scene, x, y, name, frame);
+    constructor(scene, x, y, name, frame, hp) {
+        super(scene, x, y, name, frame,hp);
         scene.physics.world.enable(this);
         scene.add.existing(this);
         this.state = "";
-        this.hp = 100;
+        this.hp = hp;
         this.steerings = [];
     }
 
@@ -103,5 +103,11 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite {
 
     setSteerings(steerings) {
         this.steerings = steerings;
+    }
+
+    updateSlime(x, y){
+        this.x = x+20
+        this.y = y
+        this.scale = 0.5
     }
 }
