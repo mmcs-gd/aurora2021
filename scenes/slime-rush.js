@@ -289,17 +289,33 @@ let SlimeRushScene = new Phaser.Class({
             const x = Phaser.Math.RND.between(50, this.physics.world.bounds.width - 50 );
             const y = Phaser.Math.RND.between(50, this.physics.world.bounds.height -50 );
             params.slimeType = Phaser.Math.RND.between(0, 4);
-            const slime = this.characterFactory.buildSlime(x, y, params);
+            const slime = this.characterFactory.buildSlime(x, y, 100, params);
             this.slimes.add(slime);
             this.physics.add.collider(slime, worldLayer);
             this.gameObjects.push(slime);
         }
         this.physics.add.collider(this.playerWithGun, this.slimes);
 
-        // Slime damage
+        function NewSlime(slime, x, y) {
+            params.slimeType = Phaser.Math.RND.between(0, 4);
+            const newSlime = this.characterFactory.buildSlime(x, y, slime.hp, params);
+            newSlime.scale = 0.5
+            this.slimes.add(newSlime);
+            this.physics.add.collider(newSlime, worldLayer);
+            this.gameObjects.push(newSlime);
+        }
+
+// Slime damage
         this.physics.add.collider(this.bullets, this.slimes, (bullet, slime) => {
             if (bullet.active) { /* very important */
+
                 slime.damage()
+                if (slime.hp>50) {
+                    const x = Math.max(slime.x - 10, 0);
+                    const y = Math.max(slime.y, 0);
+                    NewSlime.call(this, slime, x, y);
+                    slime.updateSlime(x, y)
+                }
                 bullet.setActive(false)
                 bullet.setVisible(false)
             }
